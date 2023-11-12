@@ -45,8 +45,8 @@ function debugVar:update()
     self.sugar_count.value = #wrld.sugars
     self.milk_count.value = #wrld.milks
 
-    self.near_collectables.value = plr.isTouchingCollectables
-    self.near_factoryarea.value = plr.isTouchingFactory
+    self.near_collectables.value = plr.hitbox.isTouchingCollectables
+    self.near_factoryarea.value = plr.hitbox.isTouchingFactory
 
     self.invsugar.value = plr.inventory.sugars
     self.invegg.value = plr.inventory.milks

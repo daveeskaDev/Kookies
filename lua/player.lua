@@ -22,9 +22,6 @@ local player={
         cookies=0,
     },
 
-    --debugInformation
-    isTouchingCollectables=false,
-    isTouchingFactory=false
 }
 
 --Collider
@@ -44,7 +41,6 @@ function player:update(dt)
     self.camera:update()
 
     self.hitbox:update(self)
-    self.hitbox:collide(self)
 
     self.x = self.collider:getX() - 10
     self.y = self.collider:getY() - 50

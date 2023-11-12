@@ -9,12 +9,11 @@ local hitbox = {
     width=23,
     height=40,
 
+    --debugInformation
+    isTouchingCollectables=false,
+    isTouchingFactory=false,
     isDrawing=false,
 
-    update = function(self, plr)
-        self.x=plr.x
-        self.y=plr.y
-    end,
 
     changeDrawVar = function(self, key)
         if key=="tab" and UI.isDebugging then
@@ -22,12 +21,16 @@ local hitbox = {
         end
     end,
 
-    collide = function(self, plr)
+    collide = function(self)
         for _,obj in pairs(world.sugars or world.milks) do
             if pLib.collideWith(self, obj) then
-                plr.isTouchingCollectables = true
+                self.isTouchingCollectables = true
             end
         end
+    end,
+
+    takeCollectables=function(self, key)
+        if self.
     end,
 
     draw = function(self)
@@ -36,4 +39,12 @@ local hitbox = {
         end
     end
 }
+
+function hitbox:update(plr)
+    self.x=plr.x
+    self.y=plr.y
+
+    self:collide()
+end
+
 return hitbox

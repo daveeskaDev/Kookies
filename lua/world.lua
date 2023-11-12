@@ -19,7 +19,7 @@ local world = {
 function world:spawnCollectables()
     if world.map.layers["CollectableArea"] and world.map.layers["CollectableArea"].objects then
         for _, obj in pairs(world.map.layers["CollectableArea"].objects) do
-            local probability=math.random(4)
+            local probability = love.math.random(4)
             if probability == 1 then
                 local sugar = New_sugar(obj.x, obj.y)
                 table.insert(world.sugars, sugar)

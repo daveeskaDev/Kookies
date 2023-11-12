@@ -13,8 +13,8 @@ function love.load()
     world:load()
 end
 
-function love.wheelmoved(x,y)
-    cam:changeZoomLevel(y,UI)
+function love.wheelmoved(x, y)
+    cam:changeZoomLevel(y, UI)
 end
 
 function love.keypressed(key)
@@ -33,11 +33,11 @@ end
 
 function love.draw()
     cam:attach()
-        world:draw()
-        player:draw()
-        if UI.isDebugging then
-            pLib.drawCollider()
-        end
+    world:draw()
+    player:draw()
+    if UI.isDebugging then
+        pLib.drawCollider()
+    end
     cam:detach()
 
     UI:draw()
