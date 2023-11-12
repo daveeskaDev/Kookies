@@ -25,7 +25,6 @@ local hitbox = {
     collide = function(self, plr)
         for _,obj in pairs(world.sugars or world.milks) do
             if pLib.collideWith(self, obj) then
-                print("wow")
                 plr.isTouchingCollectables = true
             end
         end
