@@ -2280,8 +2280,8 @@ return {
           visible = true,
           polygon = {
             { x = 0, y = 0 },
-            { x = 0, y = 287 },
-            { x = -8, y = 287 },
+            { x = 0, y = 289 },
+            { x = -8, y = 289 },
             { x = -8, y = 0 }
           },
           properties = {}

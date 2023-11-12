@@ -13,7 +13,7 @@ local animation = {
 
 animation.grid = anim8.newGrid(18, 35, animation.spriteSheet:getDimensions())
 animation.time_between_frames = 0.12
-animation.time_between_idle_frames = 0.23
+animation.time_between_idle_frames = 0.15
 
 --Animations
 animation.idle_down = newAnimation(anim8.newAnimation(animation.grid('1-5', 1), animation.time_between_idle_frames),

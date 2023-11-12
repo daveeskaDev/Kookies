@@ -18,7 +18,7 @@ local player={
 
     inventory={
         sugars=0,
-        eggs=0,
+        milks=0,
         cookies=0,
     },
 

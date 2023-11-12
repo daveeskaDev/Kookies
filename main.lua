@@ -11,6 +11,7 @@ local UI = require('lua.UI')
 
 function love.load()
     world:load()
+    fullscreen = false
 end
 
 function love.wheelmoved(x, y)
@@ -20,9 +21,17 @@ end
 function love.keypressed(key)
     UI:activateDebug(key)
     player:keypressed(key)
+
+    if key=="f11" then
+        fullscreen = not fullscreen
+    end
+
 end
 
 function love.update(dt)
+
+    love.window.setFullscreen(fullscreen)
+
     world:update(dt)
     player:update(dt)
 
@@ -32,12 +41,20 @@ function love.update(dt)
 end
 
 function love.draw()
+    love.graphics.setNewFont("res/fonts/Swansea.ttf", 13)
+
     cam:attach()
+
+    love.graphics.setColor({1,1,1,1})
     world:draw()
+
+    love.graphics.setColor({1,1,1,1})
     player:draw()
+
     if UI.isDebugging then
         pLib.drawCollider()
     end
+
     cam:detach()
 
     UI:draw()

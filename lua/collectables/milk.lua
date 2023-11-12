@@ -8,11 +8,11 @@ love.graphics.setDefaultFilter("nearest", "nearest")
         x = x,
         y = y,
 
-        width = 15 * 1.3,
-        height = 21 * 1.3,
+        width = 15 * 1.2,
+        height = 21 * 1.2,
 
         draw = function(self)
-            love.graphics.draw(self.sprite, self.x, self.y, nil, 1.3)
+            love.graphics.draw(self.sprite, self.x, self.y, nil, 1.2)
         end
     }
 end

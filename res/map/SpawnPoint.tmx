@@ -315,7 +315,7 @@
    <polygon points="0,0 512,0 512,22 0,22"/>
   </object>
   <object id="282" x="563" y="185">
-   <polygon points="0,0 0,287 -8,287 -8,0"/>
+   <polygon points="0,0 0,289 -8,289 -8,0"/>
   </object>
   <object id="287" x="56" y="456">
    <polygon points="-5,-5 200,-5 200,18 -5,18"/>

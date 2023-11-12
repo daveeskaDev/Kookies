@@ -23,6 +23,16 @@ function Bool_to_number(value)
     return value and 1 or 0
 end
 
+function Index(t, val)
+    for i, v in ipairs(t) do
+        if v == val then
+            return i
+        end
+    end
+
+    return nil
+end
+
 function Normalize(vector)
     local magnitude = 0
 
@@ -41,5 +51,3 @@ function Normalize(vector)
 
     return vector
 end
-
-

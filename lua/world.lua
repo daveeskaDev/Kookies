@@ -59,14 +59,18 @@ end
 
 function world:drawCollectablesCollider()
     for _, obj in ipairs(world.sugars) do
+        love.graphics.setColor({1,1,1,1})
         obj:draw()
         if UI.isDebugging then
+            love.graphics.setColor({1,0,0,1})
             love.graphics.rectangle("line", obj.x, obj.y, obj.width, obj.height)
         end
     end
     for _, obj in ipairs(world.milks) do
+        love.graphics.setColor({1,1,1,1})
         obj:draw()
         if UI.isDebugging then
+            love.graphics.setColor({1,0,0,1})
             love.graphics.rectangle("line", obj.x, obj.y, obj.width, obj.height)
         end
     end

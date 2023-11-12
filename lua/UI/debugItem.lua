@@ -12,21 +12,20 @@ local debugVar = {
     posX = debugItem("Pos(x): ", 0, 2),
     posY = debugItem("Pos(y): ", 0, 3),
 
-    cam_scale = debugItem("Camera Scale: ", 1, 4),
-    current_animation = debugItem("Current Frame: ", "", 5),
+    cam_scale = debugItem("Camera Scale: ", 1, 5),
+    current_animation = debugItem("Current Frame: ", "", 6),
 
-    sugar_count = debugItem("Total Sugar: ", 0, 6),
-    milk_count = debugItem("Total Milk: ", 0, 7),
+    sugar_count = debugItem("Total Sugar: ", 0, 8),
+    milk_count = debugItem("Total Milk: ", 0, 9),
 
-    invsugar = debugItem("Inv.Sugar: ", 0, 8),
-    invegg = debugItem("Inv.egg: ", 0, 9),
-    invchcookies = debugItem("Inv.chcookies: ", 0, 10),
+    invsugar = debugItem("Inv.Sugar: ", 0, 11),
+    invegg = debugItem("Inv.milks: ", 0, 12),
+    invchcookies = debugItem("Inv.chcookies: ", 0, 13),
 
-    near_collectables = debugItem("Is Colliding With Collectable: ", false, 11),
-    near_factoryarea = debugItem("Is Inside Factory: ", false, 12),
+    near_collectables = debugItem("Is Colliding With Collectable: ", false, 15),
+    near_factoryarea = debugItem("Is Inside Factory: ", false, 16),
 
-    total_walls = debugItem("Total Walls: ", 22, 13),
-    --total_shadow_walls = debugItem("Total Shadows Walls: ", 99)
+    total_walls = debugItem("Total Walls: ", 22, 19),
 }
 
 function debugVar:update()
@@ -58,6 +57,7 @@ end
 function debugVar:draw()
     for _, obj in pairs(debugVar) do
         if type(obj) == "table" then
+            love.graphics.setColor({0,1,0,1})
             love.graphics.print(obj.text .. tostring(obj.value), 0, obj.id * 20 - 20, nil, 2)
         end
     end
