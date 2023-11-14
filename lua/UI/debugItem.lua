@@ -23,9 +23,13 @@ local debugVar = {
     invchcookies = debugItem("Inv.chcookies: ", 0, 13),
 
     near_collectables = debugItem("Is Colliding With Collectable: ", false, 15),
-    near_factoryarea = debugItem("Is Inside Factory: ", false, 16),
+    mouse_near_collectables = debugItem("Is Mouse Colliding With Collectable: ", false, 16),
+    near_factoryarea = debugItem("Is Inside Factory: ", false, 17),
 
-    total_walls = debugItem("Total Walls: ", 22, 19),
+    total_walls = debugItem("Total Walls: ", 0, 19),
+
+    mouse_x = debugItem("Mouse X: ", 0, 21),
+    mouse_y = debugItem("Mouse Y: ", 0, 22),
 }
 
 function debugVar:update()
@@ -45,6 +49,7 @@ function debugVar:update()
     self.milk_count.value = #wrld.milks
 
     self.near_collectables.value = plr.hitbox.isTouchingCollectables
+    self.mouse_near_collectables.value = plr.hitbox.isMouseTouchingCollectables
     self.near_factoryarea.value = plr.hitbox.isTouchingFactory
 
     self.invsugar.value = plr.inventory.sugars
@@ -52,6 +57,9 @@ function debugVar:update()
     self.invchcookies.value = plr.inventory.chcookies
 
     self.total_walls.value = #wrld.walls
+
+    self.mouse_x.value = love.mouse.getX()
+    self.mouse_y.value = love.mouse.getY()
 end
 
 function debugVar:draw()

@@ -1,6 +1,7 @@
 local pLib = require('lua.physics')
 local world = require('lua.world')
 local UI = require('lua.UI')
+local cursor = require('lua.cursor')
 
 local hitbox = {
     x = 0,
@@ -9,11 +10,12 @@ local hitbox = {
     width = 76,
     height = 90,
 
-    --debugInformation 
+    --debugInformation
+    isMouseTouchingCollectables = false,
     isTouchingCollectables = false,
     isTouchingFactory = false,
-    isDrawing = false,
 
+    isDrawing = false,
 
     changeDrawVar = function(self, key)
         if key == "tab" and UI.isDebugging then
@@ -26,17 +28,11 @@ local hitbox = {
     end,
 
     takeCollectables = function(self, obj, item, plr)
-        local point = {
-            x = love.mouse.getX(),
-            y = love.mouse.getY(),
-            width = 1,
-            height = 1
-        }
-        if pLib.collideWith(point, obj) then
-            print(point.x, point.y, point.width, point.height)
-            if love.mouse.isDown(1) then
-                plr.inventory[item] = plr.inventory[item] + 1
-                table.remove(world[item], Index(world[item], obj))
+        if love.mouse.isDown(1) and self.isMouseTouchingCollectables then
+            plr.inventory[item] = plr.inventory[item] + 1
+            table.remove(world[item], Index(world[item], obj))
+            if UI.isDebugging then
+                print('1 "' .. item .. '" has been taken')
             end
         end
     end,
@@ -48,23 +44,24 @@ local hitbox = {
         end
     end
 }
-function hitbox:collide(plr)
-    for _, obj in pairs(world.sugars) do
-        if pLib.collideWith(self, obj) then
-            self.isTouchingCollectables = true
-            self:takeCollectables(obj, "sugars", plr)
-        end
-    end
 
-    for _, obj in pairs(world.milks) do
+function hitbox:collide(plr)
+    for _, obj in pairs(world.sugars, world.milks) do
         if pLib.collideWith(self, obj) then
             self.isTouchingCollectables = true
-            self:takeCollectables(obj, "milks", plr)
+            if pLib.collideWith(cursor, obj) then
+                self.isMouseTouchingCollectables = true
+                self:takeCollectables(obj, "sugars", plr)
+            end
         end
     end
 end
 
 function hitbox:update(plr)
+    self.isMouseTouchingCollectables = false
+    self.isTouchingCollectables = false
+    self.isTouchingFactory = false
+
     self.x = plr.x - 27
     self.y = plr.y - 25
 

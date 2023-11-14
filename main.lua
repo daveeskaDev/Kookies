@@ -1,4 +1,3 @@
-math.randomseed(os.time())
 love.graphics.setDefaultFilter("nearest", "nearest")
 
 require('global_func')
@@ -8,10 +7,12 @@ local player = require('lua.player')
 local cam = require('lua.player.camera')
 local pLib = require('lua.physics')
 local UI = require('lua.UI')
+local cursor = require('lua.cursor')
+
+local fullscreen = true
 
 function love.load()
     world:load()
-    fullscreen = false
 end
 
 function love.wheelmoved(x, y)
@@ -29,10 +30,10 @@ function love.keypressed(key)
 end
 
 function love.update(dt)
-
     love.window.setFullscreen(fullscreen)
 
     world:update(dt)
+    cursor:update()
     player:update(dt)
 
     pLib.updateCollider(dt)
@@ -58,4 +59,5 @@ function love.draw()
     cam:detach()
 
     UI:draw()
+    cursor:draw()
 end

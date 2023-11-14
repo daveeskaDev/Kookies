@@ -57,20 +57,29 @@ function world:update(dt)
     --TODO: Update Code
 end
 
-function world:drawCollectablesCollider()
-    for _, obj in ipairs(world.sugars) do
-        love.graphics.setColor({1,1,1,1})
+function world:drawCollectables()
+    local count = 0
+    for _, obj in pairs(self.milks) do
+        love.graphics.setColor({ 1, 1, 1, 1 })
         obj:draw()
+        count=count+1
+    end
+    for _, obj in pairs(self.sugars) do
+        love.graphics.setColor({ 1, 1, 1, 1 })
+        obj:draw()
+    end
+end
+
+function world:drawCollectablesCollider()
+    for _, obj in pairs(self.milks) do
         if UI.isDebugging then
-            love.graphics.setColor({1,0,0,1})
+            love.graphics.setColor({ 0.8, 0, 0, 1 })
             love.graphics.rectangle("line", obj.x, obj.y, obj.width, obj.height)
         end
     end
-    for _, obj in ipairs(world.milks) do
-        love.graphics.setColor({1,1,1,1})
-        obj:draw()
+    for _, obj in pairs(self.sugars) do
         if UI.isDebugging then
-            love.graphics.setColor({1,0,0,1})
+            love.graphics.setColor({ 1, 0, 0, 1 })
             love.graphics.rectangle("line", obj.x, obj.y, obj.width, obj.height)
         end
     end
@@ -82,6 +91,7 @@ function world:draw()
     self.map:drawLayer(self.map.layers["Fences"])
     self.map:drawLayer(self.map.layers["House"])
 
+    self:drawCollectables()
     self:drawCollectablesCollider()
 end
 
