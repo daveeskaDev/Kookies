@@ -1,7 +1,5 @@
 local sti = require('libs.sti')
-
 local pLib = require('lua.physics')
-local UI = require('lua.UI')
 
 --Collectables
 require('lua.collectables.sugar')
@@ -13,7 +11,12 @@ local world = {
     walls = {},
 
     sugars = {},
-    milks = {}
+    milks = {},
+
+    --Count Variable / TEMPORARY :)
+    sugar_count = 0,
+    milk_count = 0,
+    wall_count = 0
 }
 
 function world:spawnCollectables()
@@ -54,7 +57,9 @@ function world:load()
 end
 
 function world:update(dt)
-    --TODO: Update Code
+    self.sugar_count = #self.sugars
+    self.milk_count = #self.milks
+    self.wall_count = #self.walls
 end
 
 function world:drawCollectables()
@@ -62,7 +67,7 @@ function world:drawCollectables()
     for _, obj in pairs(self.milks) do
         love.graphics.setColor({ 1, 1, 1, 1 })
         obj:draw()
-        count=count+1
+        count = count + 1
     end
     for _, obj in pairs(self.sugars) do
         love.graphics.setColor({ 1, 1, 1, 1 })
@@ -70,7 +75,7 @@ function world:drawCollectables()
     end
 end
 
-function world:drawCollectablesCollider()
+function world:drawCollectablesCollider(UI)
     for _, obj in pairs(self.milks) do
         if UI.isDebugging then
             love.graphics.setColor({ 0.8, 0, 0, 1 })
@@ -85,14 +90,14 @@ function world:drawCollectablesCollider()
     end
 end
 
-function world:draw()
+function world:draw(UI)
     self.map:drawLayer(self.map.layers["Ground"])
     self.map:drawLayer(self.map.layers["Grasses"])
     self.map:drawLayer(self.map.layers["Fences"])
     self.map:drawLayer(self.map.layers["House"])
 
     self:drawCollectables()
-    self:drawCollectablesCollider()
+    self:drawCollectablesCollider(UI)
 end
 
 return world

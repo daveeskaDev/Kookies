@@ -29,18 +29,15 @@ player.collider = pLib.newRecCollider(player.x, player.y, player.hWidth, player.
 player.collider:setFixedRotation(true)
 
 function player:keypressed(key)
-    self.hitbox:changeDrawVar(key)
+    --KeyCode
 end
 
-function player:update(dt)
-    self.isTouchingCollectables = false
-    self.isTouchingFactory = false
-
+function player:update(dt, world, UI, pLib, cursor)
     self:move(dt)
     self.animation:update(dt)
     self.camera:update()
 
-    self.hitbox:update(self)
+    self.hitbox:update(self, world, UI, pLib, cursor)
 
     self.x = self.collider:getX() - 10
     self.y = self.collider:getY() - 50
@@ -58,9 +55,9 @@ function player:move(dt)
 
 end
 
-function player:draw()
+function player:draw(UI)
     self.animation.current_animation.anim:draw(self.animation.spriteSheet, self.x, self.y, nil, self.scale, nil, 6, 9)
-    self.hitbox:draw()
+    self.hitbox:draw(UI)
 end
 
 return player

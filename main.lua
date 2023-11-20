@@ -6,13 +6,15 @@ local world = require('lua.world')
 local player = require('lua.player')
 local cam = require('lua.player.camera')
 local pLib = require('lua.physics')
-local UI = require('lua.UI')
 local cursor = require('lua.cursor')
+local UI = require('lua.UI')
 
 local fullscreen = true
 
 function love.load()
     world:load()
+
+    UI:load(player, world, cursor)
 end
 
 function love.wheelmoved(x, y)
@@ -34,7 +36,7 @@ function love.update(dt)
 
     world:update(dt)
     cursor:update()
-    player:update(dt)
+    player:update(dt, world, UI, pLib, cursor)
 
     pLib.updateCollider(dt)
 
@@ -47,10 +49,10 @@ function love.draw()
     cam:attach()
 
     love.graphics.setColor({1,1,1,1})
-    world:draw()
+    world:draw(UI)
 
     love.graphics.setColor({1,1,1,1})
-    player:draw()
+    player:draw(UI)
 
     if UI.isDebugging then
         pLib.drawCollider()

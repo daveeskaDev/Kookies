@@ -1,12 +1,22 @@
-local UI={
-    debugItem=require('lua.UI.debugItem'),
-    isDebugging=false,
+local UI = {
+    debugItem = require('lua.UI.debugItem'),
+    isDebugging = false,
+    isDevMode = false,
+
+    guiItem = require('lua.UI.GUIItem'),
 
     --Functions
     activateDebug = function(self, key)
-        if key=="f3" then
+        if key == "f3" then
             self.isDebugging = not self.isDebugging
         end
+        if self.isDebugging and key == "tab" then
+            self.isDevMode = not self.isDevMode
+        end
+    end,
+
+    load = function(self, plr, wrld, cursor)
+        self.debugItem:load(plr, cursor, wrld)
     end,
 
     update = function(self)
