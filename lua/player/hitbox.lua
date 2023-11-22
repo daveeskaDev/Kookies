@@ -6,7 +6,6 @@ local hitbox = {
     height = 90,
 
     --debugInformation
-    isMouseTouchingCollectables = false,
     isTouchingCollectables = false,
     isTouchingFactory = false,
 
@@ -29,16 +28,22 @@ local hitbox = {
 }
 
 function hitbox:collide(plr, world, UI, pLib, cursor)
-    for _,obj in pairs(world.sugars, world.milks) do
+    for i,obj in pairs(world.sugars, world.milks) do
         if pLib.collideWith(self, obj) then
             self.isTouchingCollectables=true
+        end
+
+        if pLib.collideWith(cursor, obj) then
+            cursor.isTouchingCollectables = true
+            if love.mouse.isDown(1) and self.isTouchingCollectables then
+                table.remove(world[i], obj)
+            end
         end
     end
 end
 
 function hitbox:update(plr, world, UI, pLib, cursor)
-    --self.isTouchingCollectables = false
-    self.isMouseTouchingCollectables = false
+    self.isTouchingCollectables = false
     self.isTouchingFactory = false
 
     self.x = plr.x - 27

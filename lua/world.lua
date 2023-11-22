@@ -16,7 +16,9 @@ local world = {
     --Count Variable / TEMPORARY :)
     sugar_count = 0,
     milk_count = 0,
-    wall_count = 0
+    wall_count = 0,
+
+    FPS=0
 }
 
 function world:spawnCollectables()
@@ -60,32 +62,29 @@ function world:update(dt)
     self.sugar_count = #self.sugars
     self.milk_count = #self.milks
     self.wall_count = #self.walls
+
+    self.FPS = love.timer.getFPS()
 end
 
 function world:drawCollectables()
-    local count = 0
-    for _, obj in pairs(self.milks) do
-        love.graphics.setColor({ 1, 1, 1, 1 })
-        obj:draw()
-        count = count + 1
-    end
-    for _, obj in pairs(self.sugars) do
+    for _, obj in pairs(self.milks, self.sugars) do
         love.graphics.setColor({ 1, 1, 1, 1 })
         obj:draw()
     end
 end
 
 function world:drawCollectablesCollider(UI)
-    for _, obj in pairs(self.milks) do
+    for i, obj in pairs(self.milks, self.sugars) do
         if UI.isDebugging then
-            love.graphics.setColor({ 0.8, 0, 0, 1 })
+            if i=="milks" then
+                love.graphics.setColor({ 0.8, 0, 0, 1 })
+            else
+                love.graphics.setColor({ 1, 0, 0, 1 })
+            end
             love.graphics.rectangle("line", obj.x, obj.y, obj.width, obj.height)
-        end
-    end
-    for _, obj in pairs(self.sugars) do
-        if UI.isDebugging then
-            love.graphics.setColor({ 1, 0, 0, 1 })
-            love.graphics.rectangle("line", obj.x, obj.y, obj.width, obj.height)
+
+            love.graphics.setColor({ 0, 0, 0, 1 })
+            love.graphics.print(tostring(math.floor(obj.x)) .. "," .. tostring(math.floor(obj.y)), obj.x-5, obj.y-5, nil, 0.6)
         end
     end
 end
