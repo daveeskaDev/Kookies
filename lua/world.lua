@@ -2,8 +2,7 @@ local sti = require('libs.sti')
 local pLib = require('lua.physics')
 
 --Collectables
-require('lua.collectables.sugar')
-require('lua.collectables.milk')
+require('lua.collectables')
 
 local world = {
     map = sti('res/map/SpawnPoint.lua'),
@@ -26,11 +25,13 @@ function world:spawnCollectables()
         for _, obj in pairs(world.map.layers["CollectableArea"].objects) do
             local probability = love.math.random(4)
             if probability == 1 then
-                local sugar = New_sugar(obj.x, obj.y)
+                local sugar = New_collectables(obj.x, obj.y, 1)
+                sugar:load()
                 table.insert(world.sugars, sugar)
             end
             if probability == 2 then
-                local milk = New_milk(obj.x, obj.y)
+                local milk = New_collectables(obj.x, obj.y, 2)
+                milk:load()
                 table.insert(world.milks, milk)
             end
         end
@@ -58,7 +59,7 @@ function world:load()
     self:spawnCollectables()
 end
 
-function world:update(dt)
+function world:update()
     self.sugar_count = #self.sugars
     self.milk_count = #self.milks
     self.wall_count = #self.walls

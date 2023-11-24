@@ -32,12 +32,12 @@ function player:keypressed(key)
     --KeyCode
 end
 
-function player:update(dt, world, UI, pLib, cursor)
+function player:update(dt, world, cursor)
     self:move(dt)
     self.animation:update(dt)
     self.camera:update()
 
-    self.hitbox:update(self, world, UI, pLib, cursor)
+    self.hitbox:update(self, world, pLib, cursor)
 
     self.x = self.collider:getX() - 10
     self.y = self.collider:getY() - 50

@@ -25,10 +25,9 @@ function love.keypressed(key)
     UI:activateDebug(key)
     player:keypressed(key)
 
-    if key=="f11" then
+    if key == "f11" then
         fullscreen = not fullscreen
     end
-
 end
 
 function love.update(dt)
@@ -36,7 +35,7 @@ function love.update(dt)
 
     world:update(dt)
     cursor:update()
-    player:update(dt, world, UI, pLib, cursor)
+    player:update(dt, world, cursor)
 
     pLib.updateCollider(dt)
 
@@ -48,10 +47,10 @@ function love.draw()
 
     cam:attach()
 
-    love.graphics.setColor({1,1,1,1})
+    love.graphics.setColor({ 1, 1, 1, 1 })
     world:draw(UI)
 
-    love.graphics.setColor({1,1,1,1})
+    love.graphics.setColor({ 1, 1, 1, 1 })
     player:draw(UI, world)
 
     if UI.isDebugging then
