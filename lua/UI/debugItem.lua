@@ -36,6 +36,9 @@ local debugVar = {
 
         self.mouse_x = newDebugItem("Mouse X: ", 0, 21, cursor, "x")
         self.mouse_y = newDebugItem("Mouse Y: ", 0, 22, cursor, "y")
+
+        self.cam_x = newDebugItem("Camera X: ", 0, 24, plr.camera, "x")
+        self.cam_y = newDebugItem("Camera Y: ", 0, 25, plr.camera, "y")
     end
 }
 
@@ -49,6 +52,9 @@ function debugVar:update()
 
     self.posX.value = math.floor(self.posX.value)
     self.posY.value = math.floor(self.posY.value)
+
+    self.cam_x.value = math.floor(self.cam_x.value)
+    self.cam_y.value = math.floor(self.cam_y.value)
 end
 
 function debugVar:draw()

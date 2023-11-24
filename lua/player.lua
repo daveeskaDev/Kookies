@@ -55,7 +55,7 @@ function player:move(dt)
 
 end
 
-function player:draw(UI)
+function player:draw(UI, world)
     self.animation.current_animation.anim:draw(self.animation.spriteSheet, self.x, self.y, nil, self.scale, nil, 6, 9)
     self.hitbox:draw(UI)
 end

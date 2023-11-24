@@ -2,6 +2,9 @@ local cursor={
     x=0,
     y=0,
 
+    wx=0,
+    wy=0,
+
     scale=1,
 
     width=18,
@@ -13,7 +16,7 @@ local cursor={
     isTouchingCollectables=false
 }
 
-function cursor:update()
+function cursor:update(plr)
     self.x = love.mouse.getX()
     self.y = love.mouse.getY()
 

@@ -13,6 +13,7 @@ local UI = {
         if self.isDebugging and key == "tab" then
             self.isDevMode = not self.isDevMode
         end
+        if not self.isDebugging then self.isDevMode = false end
     end,
 
     load = function(self, plr, wrld, cursor)

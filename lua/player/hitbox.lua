@@ -28,17 +28,34 @@ local hitbox = {
 }
 
 function hitbox:collide(plr, world, UI, pLib, cursor)
-    for i,obj in pairs(world.sugars, world.milks) do
+    for _, obj in pairs(world.sugars, world.milks) do
         if pLib.collideWith(self, obj) then
-            self.isTouchingCollectables=true
+            self.isTouchingCollectables = true
         end
-
-        if pLib.collideWith(cursor, obj) then
+        local box = {
+            x = obj.x,
+            y = obj.y,
+            width = obj.width*plr.camera.scale,
+            height = obj.height*plr.camera.scale
+        }
+        box.x, box.y = plr.camera:cameraCoords(obj.x, obj.y)
+        if pLib.collideWith(cursor, box) then
             cursor.isTouchingCollectables = true
-            if love.mouse.isDown(1) and self.isTouchingCollectables then
-                table.remove(world[i], obj)
-            end
         end
+    end
+end
+
+function hitbox:drawBoxes(world, plr)
+    for _, obj in pairs(world.sugars, world.milks) do
+        local box = {
+            x = obj.x,
+            y = obj.y,
+            width = obj.width*plr.camera.scale,
+            height = obj.height*plr.camera.scale
+        }
+        box.x, box.y = plr.camera:cameraCoords(obj.x, obj.y)
+        love.graphics.setColor(0.1,0.3,0)
+        love.graphics.rectangle("fill", box.x, box.y, box.width, box.height)
     end
 end
 

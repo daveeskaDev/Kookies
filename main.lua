@@ -52,7 +52,7 @@ function love.draw()
     world:draw(UI)
 
     love.graphics.setColor({1,1,1,1})
-    player:draw(UI)
+    player:draw(UI, world)
 
     if UI.isDebugging then
         pLib.drawCollider()
