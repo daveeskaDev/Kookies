@@ -67,10 +67,10 @@ function world:update()
     self.FPS = love.timer.getFPS()
 end
 
-function world:drawCollectables()
+function world:drawCollectables(camera, cursor)
     for _, obj in pairs(self.milks, self.sugars) do
         love.graphics.setColor({ 1, 1, 1, 1 })
-        obj:draw()
+        obj:draw(camera, cursor, pLib)
     end
 end
 
@@ -90,13 +90,13 @@ function world:drawCollectablesCollider(UI)
     end
 end
 
-function world:draw(UI)
+function world:draw(UI, camera, cursor)
     self.map:drawLayer(self.map.layers["Ground"])
     self.map:drawLayer(self.map.layers["Grasses"])
     self.map:drawLayer(self.map.layers["Fences"])
     self.map:drawLayer(self.map.layers["House"])
 
-    self:drawCollectables()
+    self:drawCollectables(camera, cursor)
     self:drawCollectablesCollider(UI)
 end
 

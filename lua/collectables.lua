@@ -21,8 +21,20 @@ New_collectables = function(x, y, id)
             end
         end,
 
-        draw = function(self)
+        draw = function(self, camera, cursor, pLib)
             love.graphics.draw(self.sprite, self.x, self.y, nil, self.scale)
+            --Green box when cursor touches collectables
+            local box = {
+                x = self.x,
+                y = self.y,
+                width = self.width*camera.scale,
+                height = self.height*camera.scale
+            }
+            box.x, box.y = camera:cameraCoords(self.x, self.y)
+            if pLib.collideWith(cursor, box) then
+                love.graphics.setColor(0,1,0,0.7)
+                love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
+            end
         end
     }
 end

@@ -35,18 +35,20 @@ function hitbox:collide(plr, world, pLib, cursor)
         local box = {
             x = obj.x,
             y = obj.y,
-            width = obj.width*plr.camera.scale,
-            height = obj.height*plr.camera.scale
+            width = obj.width * plr.camera.scale,
+            height = obj.height * plr.camera.scale
         }
         box.x, box.y = plr.camera:cameraCoords(obj.x, obj.y)
         if pLib.collideWith(cursor, box) then
             cursor.isTouchingCollectables = true
             if self.isTouchingCollectables then
                 if love.mouse.isDown(1) then
-                    if obj.id==1 then
+                    if obj.id == 1 then
                         table.remove(world["sugars"], i)
-                    elseif obj.id==2 then
+                        plr.inventory.sugars = plr.inventory.sugars + 1
+                    elseif obj.id == 2 then
                         table.remove(world["milks"], i)
+                        plr.inventory.milks = plr.inventory.milks + 1
                     end
                 end
             end
@@ -59,11 +61,11 @@ function hitbox:drawBoxes(world, plr)
         local box = {
             x = obj.x,
             y = obj.y,
-            width = obj.width*plr.camera.scale,
-            height = obj.height*plr.camera.scale
+            width = obj.width * plr.camera.scale,
+            height = obj.height * plr.camera.scale
         }
         box.x, box.y = plr.camera:cameraCoords(obj.x, obj.y)
-        love.graphics.setColor(0.1,0.3,0)
+        love.graphics.setColor(0.1, 0.3, 0)
         love.graphics.rectangle("fill", box.x, box.y, box.width, box.height)
     end
 end

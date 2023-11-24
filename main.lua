@@ -33,7 +33,7 @@ end
 function love.update(dt)
     love.window.setFullscreen(fullscreen)
 
-    world:update(dt)
+    world:update()
     cursor:update()
     player:update(dt, world, cursor)
 
@@ -48,7 +48,7 @@ function love.draw()
     cam:attach()
 
     love.graphics.setColor({ 1, 1, 1, 1 })
-    world:draw(UI)
+    world:draw(UI, cam, cursor)
 
     love.graphics.setColor({ 1, 1, 1, 1 })
     player:draw(UI, world)
