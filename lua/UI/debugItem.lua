@@ -63,7 +63,7 @@ end
 function debugVar:draw()
     for _, obj in pairs(debugVar) do
         if type(obj) == "table" then
-            love.graphics.setColor({ 0, 1, 0, 1 })
+            love.graphics.setColor({ 0.8, 1, 0, 1 })
             love.graphics.print(obj.text .. tostring(obj.value), 0, obj.id * 20 - 20, nil, 2)
         end
     end

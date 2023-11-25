@@ -22,7 +22,7 @@ New_collectables = function(x, y, id)
 
                     self.scale=obj["scale"]
 
-                    self.sprite=obj["sprite"]
+                    self.sprite=Load_purple_img(obj["sprite"])
                 end
             end
         end,
@@ -43,6 +43,7 @@ New_collectables = function(x, y, id)
             end
 
             if UI.isDebugging then
+                love.graphics.setColor(0.83,0.2,0.23,1)
                 love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
                 love.graphics.print(tostring(math.floor(self.x)) .. "," .. tostring(math.floor(self.y)), self.x-5, self.y-5, nil, 0.6)
             end
