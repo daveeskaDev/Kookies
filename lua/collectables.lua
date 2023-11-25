@@ -10,7 +10,8 @@ New_collectables = function(x, y, id)
             local items = {}
             local files=love.filesystem.getDirectoryItems('res/Collectables')
             for i=1,#love.filesystem.getDirectoryItems('res/Collectables') do
-                table.insert(items, Open_json(files[i]))
+                local filename='res/Collectables/'..files[i]
+                table.insert(items, Open_json(tostring(filename)))
             end
 
             --Inserting values from json

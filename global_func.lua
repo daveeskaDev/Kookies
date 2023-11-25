@@ -2,7 +2,8 @@ local json = require('libs.json')
 
 function Open_json(filename)
     local file = io.open(filename)
-    return json.decode(file)
+    local file_content=file:read("*a")
+    return json.decode(file_content)
 end
 
 function Load_purple_img(file, w, h)

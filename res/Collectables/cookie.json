@@ -1,10 +1,10 @@
-[
-    {"id":3},
+{
+    "id":3,
 
-    {"width":32*0.7},
-    {"height":32*0.7},
+    "width":22.4,
+    "height":22.4,
 
-    {"scale":0.7},
+    "scale":0.7,
 
-    {"sprite":"res/img/Cookie.png"}
-]
+    "sprite":"res/img/Cookie.png"
+}
