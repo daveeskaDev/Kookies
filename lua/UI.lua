@@ -16,15 +16,17 @@ local UI = {
         if not self.isDebugging then self.isDevMode = false end
     end,
 
-    load = function(self, plr, wrld, cursor)
-        self.debugItem:load(plr, cursor, wrld)
+    load = function(self, plr, wrld, cursor, camera)
+        self.debugItem:load(plr, cursor, wrld, camera)
     end,
 
-    update = function(self)
-        self.debugItem:update()
+    update = function(self, plr)
+        self.debugItem:update(plr)
     end,
 
-    draw = function(self)
+    draw = function(self, plr)
+        plr.inventory:draw()
+
         if self.isDebugging then
             self.debugItem:draw()
         end

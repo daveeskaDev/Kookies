@@ -1,3 +1,10 @@
+local json = require('libs.json')
+
+function Open_json(filename)
+    local file = io.open(filename)
+    return json.decode(file)
+end
+
 function Load_purple_img(file, w, h)
     local dat = love.image.newImageData(file)
     dat:mapPixel(function(x, y, r, g, b, a)

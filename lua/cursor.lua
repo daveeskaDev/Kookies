@@ -7,8 +7,8 @@ local cursor={
 
     scale=1,
 
-    width=18,
-    height=28,
+    width=1,
+    height=1,
 
     sprite=love.graphics.newImage('res/img/Cursor.png'),
 

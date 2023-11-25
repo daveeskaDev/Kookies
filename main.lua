@@ -14,7 +14,7 @@ local fullscreen = true
 function love.load()
     world:load()
 
-    UI:load(player, world, cursor)
+    UI:load(player, world, cursor, cam)
 end
 
 function love.wheelmoved(x, y)
@@ -35,11 +35,12 @@ function love.update(dt)
 
     world:update()
     cursor:update()
-    player:update(dt, world, cursor)
+    player:update(dt, world, cursor, cam)
+    cam:update()
 
     pLib.updateCollider(dt)
 
-    UI:update()
+    UI:update(player)
 end
 
 function love.draw()
@@ -59,6 +60,6 @@ function love.draw()
 
     cam:detach()
 
-    UI:draw()
+    UI:draw(player)
     cursor:draw()
 end

@@ -13,15 +13,9 @@ local player={
 
     speed=200,
 
-    camera=require('lua.player.camera'),
     animation=require('lua.player.animation'),
 
-    inventory={
-        sugars=0,
-        milks=0,
-        cookies=0,
-    },
-
+    inventory=require('lua.player.inventory')
 }
 
 --Collider
@@ -32,12 +26,11 @@ function player:keypressed(key)
     --KeyCode
 end
 
-function player:update(dt, world, cursor)
+function player:update(dt, world, cursor, camera)
     self:move(dt)
     self.animation:update(dt)
-    self.camera:update()
 
-    self.hitbox:update(self, world, pLib, cursor)
+    self.hitbox:update(self, world, pLib, cursor, camera)
 
     self.x = self.collider:getX() - 10
     self.y = self.collider:getY() - 50

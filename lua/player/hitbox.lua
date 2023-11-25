@@ -27,7 +27,7 @@ local hitbox = {
     end
 }
 
-function hitbox:collide(plr, world, pLib, cursor)
+function hitbox:collide(plr, world, pLib, cursor, camera)
     for i, obj in pairs(world.sugars, world.milks) do
         if pLib.collideWith(self, obj) then
             self.isTouchingCollectables = true
@@ -35,20 +35,20 @@ function hitbox:collide(plr, world, pLib, cursor)
         local box = {
             x = obj.x,
             y = obj.y,
-            width = obj.width * plr.camera.scale,
-            height = obj.height * plr.camera.scale
+            width = obj.width * camera.scale,
+            height = obj.height * camera.scale
         }
-        box.x, box.y = plr.camera:cameraCoords(obj.x, obj.y)
+        box.x, box.y = camera:cameraCoords(obj.x, obj.y)
         if pLib.collideWith(cursor, box) then
             cursor.isTouchingCollectables = true
             if self.isTouchingCollectables then
                 if love.mouse.isDown(1) then
                     if obj.id == 1 then
+                        table.insert(plr.inventory.sugars["details"], world.sugars[i])
                         table.remove(world["sugars"], i)
-                        plr.inventory.sugars = plr.inventory.sugars + 1
                     elseif obj.id == 2 then
+                        table.insert(plr.inventory.milks["details"], world.milks[i])
                         table.remove(world["milks"], i)
-                        plr.inventory.milks = plr.inventory.milks + 1
                     end
                 end
             end
@@ -56,28 +56,28 @@ function hitbox:collide(plr, world, pLib, cursor)
     end
 end
 
-function hitbox:drawBoxes(world, plr)
+function hitbox:drawBoxes(world, camera)
     for _, obj in pairs(world.sugars, world.milks) do
         local box = {
             x = obj.x,
             y = obj.y,
-            width = obj.width * plr.camera.scale,
-            height = obj.height * plr.camera.scale
+            width = obj.width * camera.scale,
+            height = obj.height * camera.scale
         }
-        box.x, box.y = plr.camera:cameraCoords(obj.x, obj.y)
+        box.x, box.y = camera:cameraCoords(obj.x, obj.y)
         love.graphics.setColor(0.1, 0.3, 0)
         love.graphics.rectangle("fill", box.x, box.y, box.width, box.height)
     end
 end
 
-function hitbox:update(plr, world, pLib, cursor)
+function hitbox:update(plr, world, pLib, cursor, camera)
     self.isTouchingCollectables = false
     self.isTouchingFactory = false
 
     self.x = plr.x - 27
     self.y = plr.y - 25
 
-    self:collide(plr, world, pLib, cursor)
+    self:collide(plr, world, pLib, cursor, camera)
 end
 
 return hitbox

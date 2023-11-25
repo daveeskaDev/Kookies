@@ -6,22 +6,27 @@ New_collectables = function(x, y, id)
         id = id,
 
         load = function(self)
-            if self.id == 1 then
-                self.width = 27 * .7
-                self.height = 35 * .7
-                self.scale = .7
+            --opening json
+            local items = {}
+            local files=love.filesystem.getDirectoryItems('res/Collectables')
+            for i=1,#love.filesystem.getDirectoryItems('res/Collectables') do
+                table.insert(items, Open_json(files[i]))
+            end
 
-                self.sprite = Load_purple_img("res/img/Sugar.png")
-            elseif self.id == 2 then
-                self.width = 15 * 1.2
-                self.height = 21 * 1.2
-                self.scale = 1.2
+            --Inserting values from json
+            for _,obj in pairs(items) do
+                if self.id == obj.id then
+                    self.width=obj["width"]
+                    self.height=obj["height"]
 
-                self.sprite = Load_purple_img("res/img/Milk.png")
+                    self.scale=obj["scale"]
+
+                    self.sprite=obj["sprite"]
+                end
             end
         end,
 
-        draw = function(self, camera, cursor, pLib)
+        draw = function(self, camera, cursor, pLib, UI)
             love.graphics.draw(self.sprite, self.x, self.y, nil, self.scale)
             --Green box when cursor touches collectables
             local box = {
@@ -35,6 +40,12 @@ New_collectables = function(x, y, id)
                 love.graphics.setColor(0,1,0,0.7)
                 love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
             end
+
+            if UI.isDebugging then
+                love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
+                love.graphics.print(tostring(math.floor(self.x)) .. "," .. tostring(math.floor(self.y)), self.x-5, self.y-5, nil, 0.6)
+            end
+
         end
     }
 end
