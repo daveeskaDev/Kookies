@@ -9,30 +9,26 @@ local world = {
 
     walls = {},
 
-    sugars = {},
-    milks = {},
+    collectables = {},
 
     --Count Variable / TEMPORARY :)
     sugar_count = 0,
     milk_count = 0,
     wall_count = 0,
 
-    FPS=0
+    FPS = 0
 }
 
 function world:spawnCollectables()
     if world.map.layers["CollectableArea"] and world.map.layers["CollectableArea"].objects then
         for _, obj in pairs(world.map.layers["CollectableArea"].objects) do
             local probability = love.math.random(4)
-            if probability == 1 then
-                local sugar = New_collectables(obj.x, obj.y, 1)
-                sugar:load()
-                table.insert(world.sugars, sugar)
-            end
-            if probability == 2 then
-                local milk = New_collectables(obj.x, obj.y, 2)
-                milk:load()
-                table.insert(world.milks, milk)
+            if probability < 3 then
+                local item = New_collectables(obj.x, obj.y, probability)
+                item:load()
+                table.insert(self.collectables, item)
+                if probability==1 then self.sugar_count = self.sugar_count + 1
+                elseif probability==2 then self.milk_count = self.milk_count + 1 end
             end
         end
     end
@@ -60,15 +56,11 @@ function world:load()
 end
 
 function world:update()
-    self.sugar_count = #self.sugars
-    self.milk_count = #self.milks
-    self.wall_count = #self.walls
-
     self.FPS = love.timer.getFPS()
 end
 
 function world:drawCollectables(camera, cursor, UI)
-    for _, obj in pairs(self.milks, self.sugars) do
+    for _, obj in pairs(self.collectables) do
         love.graphics.setColor({ 1, 1, 1, 1 })
         obj:draw(camera, cursor, pLib, UI)
     end

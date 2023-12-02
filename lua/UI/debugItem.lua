@@ -23,22 +23,18 @@ local debugVar = {
         self.sugar_count = newDebugItem("Total Sugar: ", 0, 9, wrld, "sugar_count")
         self.milk_count = newDebugItem("Total Milk: ", 0, 10, wrld, "milk_count")
 
-        self.invsugar = newDebugItem("Inv.Sugar: ", 0, 12, plr.inventory, "sugars")
-        self.invmilks = newDebugItem("Inv.milks: ", 0, 13, plr.inventory, "milks")
-        self.invchcookies = newDebugItem("Inv.chcookies: ", 0, 14, plr.inventory, "cookies")
-
-        self.near_collectables = newDebugItem("Is Colliding With Collectable: ", false, 16,
+        self.near_collectables = newDebugItem("Is Colliding With Collectable: ", false, 12,
         plr.hitbox, "isTouchingCollectables")
         self.mouse_near_collectables = newDebugItem("Is Mouse Colliding With Collectable: ",
-        false, 17, cursor, "isTouchingCollectables")
+        false, 13, cursor, "isTouchingCollectables")
 
-        self.total_walls = newDebugItem("Total Walls: ", 0, 19, wrld, "wall_count")
+        self.total_walls = newDebugItem("Total Walls: ", 0, 15, wrld, "wall_count")
 
-        self.mouse_x = newDebugItem("Mouse X: ", 0, 21, cursor, "x")
-        self.mouse_y = newDebugItem("Mouse Y: ", 0, 22, cursor, "y")
+        self.mouse_x = newDebugItem("Mouse X: ", 0, 17, cursor, "x")
+        self.mouse_y = newDebugItem("Mouse Y: ", 0, 18, cursor, "y")
 
-        self.cam_x = newDebugItem("Camera X: ", 0, 24, camera, "x")
-        self.cam_y = newDebugItem("Camera Y: ", 0, 25, camera, "y")
+        self.cam_x = newDebugItem("Camera X: ", 0, 20, camera, "x")
+        self.cam_y = newDebugItem("Camera Y: ", 0, 21, camera, "y")
     end
 }
 
@@ -54,10 +50,6 @@ function debugVar:update(plr)
 
     self.cam_x.value = math.floor(self.cam_x.value)
     self.cam_y.value = math.floor(self.cam_y.value)
-
-    self.invsugar.value = #plr.inventory.sugars["details"]
-    self.invmilks.value = #plr.inventory.milks["details"]
-    self.invchcookies.value = #plr.inventory.cookies["details"]
 end
 
 function debugVar:draw()

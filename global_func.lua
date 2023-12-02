@@ -60,6 +60,7 @@ function Normalize(vector)
     return vector
 end
 
+--[[
 function pairs(t, ...)
   local i, a, k, v = 1, {...}
   return
@@ -73,3 +74,4 @@ function pairs(t, ...)
       return k, v
     end
 end
+]]

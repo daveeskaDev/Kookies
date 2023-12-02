@@ -13,6 +13,7 @@ local fullscreen = true
 
 function love.load()
     world:load()
+    player:load()
 
     UI:load(player, world, cursor, cam)
 end
@@ -60,6 +61,6 @@ function love.draw()
 
     cam:detach()
 
-    UI:draw(player)
+    UI:draw(player, world, cam)
     cursor:draw()
 end

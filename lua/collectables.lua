@@ -45,6 +45,7 @@ New_collectables = function(x, y, id)
             if UI.isDebugging then
                 love.graphics.setColor(0.83,0.2,0.23,1)
                 love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
+                love.graphics.setColor(0,0,0,1)
                 love.graphics.print(tostring(math.floor(self.x)) .. "," .. tostring(math.floor(self.y)), self.x-5, self.y-5, nil, 0.6)
             end
 

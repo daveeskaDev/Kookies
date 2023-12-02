@@ -1,8 +1,8 @@
 local pLib = require('lua.physics')
 
 local player={
-    x=984,
-    y=500,
+    x=257,
+    y=480,
 
     hWidth=23,
     hHeight=10,
@@ -18,12 +18,17 @@ local player={
     inventory=require('lua.player.inventory')
 }
 
---Collider
-player.collider = pLib.newRecCollider(player.x, player.y, player.hWidth, player.hHeight)
-player.collider:setFixedRotation(true)
 
 function player:keypressed(key)
     --KeyCode
+end
+
+function player:load()
+    --Collider
+    player.collider = pLib.newRecCollider(player.x, player.y, player.hWidth, player.hHeight)
+    player.collider:setFixedRotation(true)
+
+    self.inventory:load()
 end
 
 function player:update(dt, world, cursor, camera)
@@ -31,6 +36,7 @@ function player:update(dt, world, cursor, camera)
     self.animation:update(dt)
 
     self.hitbox:update(self, world, pLib, cursor, camera)
+    self.inventory:update()
 
     self.x = self.collider:getX() - 10
     self.y = self.collider:getY() - 50

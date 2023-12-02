@@ -9,16 +9,6 @@ local hitbox = {
     isTouchingCollectables = false,
     isTouchingFactory = false,
 
-    takeCollectables = function(self, obj, item, plr, world, UI)
-        if love.mouse.isDown(1) and self.isMouseTouchingCollectables then
-            plr.inventory[item] = plr.inventory[item] + 1
-            table.remove(world[item], Index(world[item], obj))
-            if UI.isDebugging then
-                print('1 "' .. item .. '" has been taken')
-            end
-        end
-    end,
-
     draw = function(self, UI)
         if UI.isDevMode then
             love.graphics.setColor({ 0.5, 0.34, 0.78, 0.86 })
@@ -28,7 +18,7 @@ local hitbox = {
 }
 
 function hitbox:collide(plr, world, pLib, cursor, camera)
-    for i, obj in pairs(world.sugars, world.milks) do
+    for i, obj in pairs(world.collectables) do
         if pLib.collideWith(self, obj) then
             self.isTouchingCollectables = true
         end
@@ -42,14 +32,10 @@ function hitbox:collide(plr, world, pLib, cursor, camera)
         if pLib.collideWith(cursor, box) then
             cursor.isTouchingCollectables = true
             if self.isTouchingCollectables then
+                cursor.mode=2
                 if love.mouse.isDown(1) then
-                    if obj.id == 1 then
-                        table.insert(plr.inventory.sugars["details"], world.sugars[i])
-                        table.remove(world["sugars"], i)
-                    elseif obj.id == 2 then
-                        table.insert(plr.inventory.milks["details"], world.milks[i])
-                        table.remove(world["milks"], i)
-                    end
+                    table.insert(plr.inventory.items, obj)
+                    table.remove(world.collectables, i)
                 end
             end
         end
@@ -57,7 +43,7 @@ function hitbox:collide(plr, world, pLib, cursor, camera)
 end
 
 function hitbox:drawBoxes(world, camera)
-    for _, obj in pairs(world.sugars, world.milks) do
+    for _, obj in pairs(world.collectables) do
         local box = {
             x = obj.x,
             y = obj.y,

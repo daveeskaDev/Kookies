@@ -24,7 +24,9 @@ local UI = {
         self.debugItem:update(plr)
     end,
 
-    draw = function(self, plr)
+    draw = function(self, plr, world, cam)
+
+        if self.isDevMode then plr.hitbox:drawBoxes(world, cam) end
         plr.inventory:draw()
 
         if self.isDebugging then
